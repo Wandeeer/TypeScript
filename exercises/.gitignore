@@ -1,0 +1,17 @@
+# Node modules
+node_modules/
+
+# Archivos de build de TypeScript
+*.js
+*.js.map
+
+# Archivos de logs
+*.log
+
+# Dependencias de npm
+package-lock.json
+yarn.lock
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
