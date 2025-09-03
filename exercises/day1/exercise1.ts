@@ -1,5 +1,27 @@
 import * as readline from 'readline';
 
+// Defino aqui la funcion ya que se me olvida que js/ts es sincrono y primero
+// lee todo el codigo ejecutando todo el codigo sincrono que se encuentre
+// por eso mi funcion no funcionaba al final, asique lo pongo aqui y luego lo
+// llamamos en la ultima funcion autoejecutable
+
+// Esto esta genial no sabia que serviria de mucho el tipado xD
+interface User {
+    name: string,
+    age: number
+}
+
+const users: User[] = [];
+
+function search_user_name(userName: string): void {
+   users.map(user => {
+        if(user.name == userName) {
+            console.log("Encontrado : ")
+            console.log(user);
+            console.log("\n");
+        }       
+    });
+}
 // Ok esto se me complico un poco porque ya se me habia olvidado JS xD
 // bueno la funcion es si va a pedir un string en este caso una pregunta
 // para mas precisos y va a retornar una promesa que cuando se resulva
@@ -25,16 +47,9 @@ function question(input: string): Promise<string> {
     });
 }
 
-// Esto esta genial no sabia que serviria de mucho el tipado xD
-interface User {
-    name: string,
-    age: number
-}
-
 // En esta parte es mas legible como se puede ver asemos la promesa de retornar
 // una cadena de personas y el count es cuantas personas van a ser ingresadas
-async function new_users (count: number): Promise<User[]> {
-    const users: User[] = [];
+async function new_users (count: number): Promise<User[]> { 
 
     for (let i = 0; i < count; i++) {
         // Aqui es muy facil de entender, basicamente llamamos a la funcion question
@@ -42,6 +57,7 @@ async function new_users (count: number): Promise<User[]> {
         // respuesta en ask_name o ask_age :)))) happy por fin ;)
         const ask_name = await question("Nombre: ");
         const ask_age = await question("Edad: "); 
+        console.log("\n")
         // Se agrega ya por ultimo a la persona al array de persona
         // se tiene que parsear a la edad ya que el dato se pidio como un string
         users.push( { name: ask_name, age: parseInt(ask_age) } ); 
@@ -58,4 +74,6 @@ async function new_users (count: number): Promise<User[]> {
 (async () => {
     const values = await new_users(2);
     console.log("Usuarios: ", values)
+    console.log("\n"); 
+    search_user_name("Xavier");
 })();
